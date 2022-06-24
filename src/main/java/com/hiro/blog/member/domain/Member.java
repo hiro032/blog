@@ -14,18 +14,18 @@ public class Member {
 
     private String name;
 
-    private String email;
+    private String username;
 
     private String password;
 
     protected Member() {
     }
 
-    public Member(final String name, final String email, final String password) {
-        validate(name, email, password);
+    public Member(final String name, final String username, final String password) {
+        validate(name, username, password);
         this.id = UUID.randomUUID();
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
     }
 
@@ -49,7 +49,7 @@ public class Member {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 }

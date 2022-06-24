@@ -20,7 +20,7 @@ public class MemberInfo {
         private String email;
 
         public static CreateMemberInfo fromEntity(Member member) {
-            return new CreateMemberInfo(member.getId(), member.getName(), member.getEmail());
+            return new CreateMemberInfo(member.getId(), member.getName(), member.getUsername());
         }
     }
 

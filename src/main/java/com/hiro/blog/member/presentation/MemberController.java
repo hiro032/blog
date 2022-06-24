@@ -26,4 +26,5 @@ public class MemberController {
 
         return ResponseEntity.created(URI.create("/members/" + info.getId())).build();
     }
+
 }

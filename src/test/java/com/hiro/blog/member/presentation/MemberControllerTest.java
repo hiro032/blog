@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemberControllerTest extends AcceptanceTest {
 
@@ -28,4 +27,5 @@ class MemberControllerTest extends AcceptanceTest {
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
+
 }
