@@ -4,6 +4,7 @@ import com.hiro.blog.member.application.dtos.MemberCommand;
 import com.hiro.blog.member.application.dtos.MemberInfo;
 import com.hiro.blog.member.domain.Member;
 import com.hiro.blog.member.domain.MemberRepository;
+import com.hiro.blog.member.domain.exception.DuplicateUsernameException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,7 @@ public class MemberService {
 
     private void validateDuplicateUsername(final String username) {
         if (repository.existsByUsername(username)) {
-            throw new IllegalArgumentException("이미 가입된 아이디 입니다.");
+            throw new DuplicateUsernameException();
         }
     }
 
