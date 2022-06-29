@@ -17,7 +17,7 @@ public class MemberInfo {
 
         private UUID id;
         private String name;
-        private String email;
+        private String username;
 
         public static CreateMemberInfo fromEntity(Member member) {
             return new CreateMemberInfo(member.getId(), member.getName(), member.getUsername());
