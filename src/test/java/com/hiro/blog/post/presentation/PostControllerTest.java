@@ -51,6 +51,24 @@ class PostControllerTest extends AcceptanceTest {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
+    @DisplayName("게시글 삭제.")
+    @Test
+    void delete() {
+        String sessionId = 로그인();
+        String url = 게시글_등록(sessionId);
+
+        ExtractableResponse<Response> response = RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .sessionId(sessionId)
+                .body(PostFixtures.modifyPostRequest())
+                .when()
+                .delete(url)
+                .then().log().all()
+                .extract();
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+
     private String 게시글_등록(String sessionId) {
         ExtractableResponse<Response> response = RestAssured.given().log().all()
                 .sessionId(sessionId)
