@@ -44,7 +44,7 @@ public class Post {
         }
     }
 
-    public void modify(UUID writerId, String modifiedTitle, String modifiedContent) {
+    public void modify(final UUID writerId, final String modifiedTitle, final String modifiedContent) {
         validateWriter(writerId);
 
         this.title = modifiedTitle;
