@@ -16,8 +16,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder encoder() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -35,6 +34,12 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/members")
                 .permitAll();
+        http
+                .authorizeRequests()
+                .antMatchers("/h2-console/**")
+                .permitAll();
+
+        http.headers().frameOptions().disable();
 
         http
                 .authorizeRequests()
