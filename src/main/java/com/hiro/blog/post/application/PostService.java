@@ -2,14 +2,15 @@ package com.hiro.blog.post.application;
 
 import com.hiro.blog.member.domain.Member;
 import com.hiro.blog.member.domain.MemberRepository;
+import com.hiro.blog.member.domain.exception.MemberNotFoundException;
 import com.hiro.blog.post.application.dtos.ModifyPostCommand;
 import com.hiro.blog.post.application.dtos.WritePostCommand;
 import com.hiro.blog.post.domain.Post;
 import com.hiro.blog.post.domain.PostRepository;
+import com.hiro.blog.post.domain.exception.PostNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -35,13 +36,13 @@ public class PostService {
 
     private Member findWriter(final UUID writerId) {
         return memberRepository.findById(writerId)
-                .orElseThrow(() -> new NoSuchElementException(writerId + "아이디에 해당하는 유저를 찾을 수 없습니다."));
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     @Transactional
     public void delete(final UUID writerId, final UUID postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(PostNotFoundException::new);
 
         post.validateWriter(writerId);
 
@@ -51,8 +52,10 @@ public class PostService {
     @Transactional
     public void modify(final UUID writerId, final UUID postId, final ModifyPostCommand command) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(PostNotFoundException::new);
 
-        post.modify(writerId, command.getTitle(), command.getContent());
+        post.validateWriter(writerId);
+
+        post.modify(command.getTitle(), command.getContent());
     }
 }

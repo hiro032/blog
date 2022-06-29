@@ -38,15 +38,13 @@ public class Post {
         this.content = content;
     }
 
-    public void validateWriter(UUID writerId) {
+    public void validateWriter(final UUID writerId) {
         if (this.writerId.compareTo(writerId) != 0) {
             throw new InvalidWriterDeletePostException();
         }
     }
 
-    public void modify(final UUID writerId, final String modifiedTitle, final String modifiedContent) {
-        validateWriter(writerId);
-
+    public void modify(final String modifiedTitle, final String modifiedContent) {
         this.title = modifiedTitle;
         this.content = modifiedContent;
     }
